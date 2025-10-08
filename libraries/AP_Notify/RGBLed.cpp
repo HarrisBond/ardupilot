@@ -206,6 +206,23 @@ uint32_t RGBLed::get_colour_sequence_traffic_light(void) const
 // at 50Hz
 void RGBLed::update()
 {
+
+    custom_blink_test_enabled = true;
+    if (custom_blink_test_enabled){
+        static bool toggle = false;
+        static uint32_t last_ms = 0;
+        if (AP_HAL::millis() - last_ms > 500){
+            last_ms = AP_HAL::millis();
+            toggle = !toggle;
+            if (toggle){
+                set_rgb(15,0,15);
+            } else {
+                set_rgb(0,0,0);
+            }
+            return;
+        }
+    }
+
     uint32_t current_colour_sequence = 0;
 
     switch (rgb_source()) {
