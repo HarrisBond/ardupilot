@@ -207,7 +207,7 @@ uint32_t RGBLed::get_colour_sequence_traffic_light(void) const
 void RGBLed::update()
 {
 
-    custom_blink_test_enabled = true;
+    bool custom_blink_test_enabled = true;
     if (custom_blink_test_enabled){
         static bool toggle = false;
         static uint32_t last_ms = 0;
