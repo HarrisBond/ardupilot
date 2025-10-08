@@ -219,8 +219,8 @@ void RGBLed::update()
             } else {
                 set_rgb(0,0,0);
             }
-            return;
         }
+        return;
     }
 
     uint32_t current_colour_sequence = 0;
