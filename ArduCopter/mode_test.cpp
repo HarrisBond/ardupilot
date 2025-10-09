@@ -93,13 +93,12 @@
 
 
 
-
 void ModeTest::run()
 {
     const float t = (float)(AP_HAL::millis()) * 0.001f;
-    const float amplitude = 450.0f;  // ±45% of full range
-    const float freq = 0.5f;         // Hz
+    const float amplitude = 450.0f;
+    const float freq = 0.5f;
     float servo_out = sinf(2.0f * M_PI * freq * t) * amplitude;
 
-    SRV_Channels::set_output_scaled(SRV_Channel::k_motor1, servo_out);
+    SRV_Channels::srv_channel(1)->set_output_scaled(servo_out);
 }
