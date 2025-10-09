@@ -71,7 +71,7 @@
 
 //     float srv_pos = sinf((float)(AP_HAL::millis()) / 1000.0f) * 0.1f;
 
-//     SRV_Channels::set_output_scaled(SRV_Channel::k_roll_out, srv_pos);
+    // SRV_Channels::set_output_scaled(SRV_Channel::k_roll_out, srv_pos);
 //     SRV_Channels::calc_pwm();
 //     auto &srv = AP::srv();
 //     // cork now, so that all channel outputs happen at once
@@ -96,14 +96,10 @@
 
 void ModeTest::run()
 {
-    // channel index is 1 for SERVO1 (Motor 1 pin)
-    const uint8_t servo_ch = 1;
-
     const float t = (float)(AP_HAL::millis()) * 0.001f;
     const float amplitude = 450.0f;  // ±45% of full range
     const float freq = 0.5f;         // Hz
     float servo_out = sinf(2.0f * M_PI * freq * t) * amplitude;
 
-    // directly write to channel 1
-    SRV_Channels::set_output_scaled(servo_ch, servo_out);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_motor1, servo_out);
 }
