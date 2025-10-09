@@ -78,7 +78,7 @@ void ModeTest::run()
     srv.cork();
     // update output on any aux channels, for manual passthru
     SRV_Channels::output_ch_all();
-    flightmode->output_to_motors();
+    output_to_motors();
     // push all channels
     // motor output including servos and other updates that need to run at the main loop rate
     srv.push();
