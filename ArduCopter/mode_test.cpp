@@ -69,7 +69,7 @@ void ModeTest::run()
     // output pilot's throttle
     // attitude_control->set_throttle_out(pilot_desired_throttle, true, g.throttle_filt);
 
-    srv_pos = sinf(AP_HAL::millis() / 1000.0f) * 0.1f;
+    float srv_pos = sinf(AP_HAL::millis() / 1000.0f) * 0.1f;
 
     SRV_Channels::set_output_scaled(SRV_Channel::k_roll_out, srv_pos);
     SRV_Channels::calc_pwm();
