@@ -40,7 +40,7 @@ void ModeTest::run()
         // Motors Stopped
         attitude_control->reset_yaw_target_and_rate();
         attitude_control->reset_rate_controller_I_terms();
-        pilot_desired_throttle = 0.0f;
+        // pilot_desired_throttle = 0.0f;
         break;
 
     // case AP_Motors::SpoolState::GROUND_IDLE:
