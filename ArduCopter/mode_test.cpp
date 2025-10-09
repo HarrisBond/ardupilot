@@ -35,13 +35,13 @@ void ModeTest::run()
 
     // float pilot_desired_throttle = get_pilot_desired_throttle();
 
-    switch (motors->get_spool_state()) {
-    case AP_Motors::SpoolState::SHUT_DOWN:
-        // Motors Stopped
-        attitude_control->reset_yaw_target_and_rate();
-        attitude_control->reset_rate_controller_I_terms();
+    // switch (motors->get_spool_state()) {
+    // case AP_Motors::SpoolState::SHUT_DOWN:
+        // // Motors Stopped
+        // attitude_control->reset_yaw_target_and_rate();
+        // attitude_control->reset_rate_controller_I_terms();
         // pilot_desired_throttle = 0.0f;
-        break;
+        // break;
 
     // case AP_Motors::SpoolState::GROUND_IDLE:
     //     // Landed
@@ -61,7 +61,7 @@ void ModeTest::run()
     // case AP_Motors::SpoolState::SPOOLING_DOWN:
     //     // do nothing
     //     break;
-    }
+    // }
 
     // call attitude controller
     // attitude_control->input_euler_angle_roll_pitch_euler_rate_yaw_rad(target_roll_rad, target_pitch_rad, target_yaw_rate_rads);
