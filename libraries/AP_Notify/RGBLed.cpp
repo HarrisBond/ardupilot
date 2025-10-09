@@ -206,7 +206,7 @@ uint32_t RGBLed::get_colour_sequence_traffic_light(void) const
 // at 50Hz
 void RGBLed::update()
 {
-
+    // Custom Code, Harris Bond
     bool custom_blink_test_enabled = true;
     if (custom_blink_test_enabled){
         static bool toggle = false;
@@ -222,6 +222,7 @@ void RGBLed::update()
         }
         return;
     }
+    // End Custom Code
 
     uint32_t current_colour_sequence = 0;
 
