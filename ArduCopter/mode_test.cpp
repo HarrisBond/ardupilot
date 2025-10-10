@@ -101,4 +101,6 @@ void ModeTest::run()
     float servo_out = sinf(2.0f * M_PI * freq * t) * amplitude;
 
     SRV_Channels::set_output_scaled(SRV_Channel::k_motor1, servo_out);
+    SRV_Channels::output_ch_all();
+    AP::srv().push();
 }
