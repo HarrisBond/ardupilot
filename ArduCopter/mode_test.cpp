@@ -95,10 +95,26 @@
 
 void ModeTest::run()
 {
+
+    static uint32_t start_time;
+    static bool started = false;
+    if (!started) {
+        start_time = AP_HAL::millis();
+        started = true;
+    }
+
     // 0 = SERVO1 physical pin
     SRV_Channel* ch = SRV_Channels::srv_channel(3);
+
+    uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
+
     if (ch) {
-        uint16_t pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f); // ±400us example
+        uint16_t pwm_us;
+        if (elapsed_time_ms < 20000){
+            pwm_us = 1000;
+        } else {
+            pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
+        }
         ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
     }
 
