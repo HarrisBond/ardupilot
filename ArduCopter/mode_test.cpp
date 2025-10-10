@@ -96,12 +96,12 @@
 void ModeTest::run()
 {
 
-    static uint32_t start_time;
-    static bool started = false;
-    if (!started) {
-        start_time = AP_HAL::millis();
-        started = true;
-    }
+    // static uint32_t start_time;
+    // static bool started = false;
+    // if (!started) {
+    //     start_time = AP_HAL::millis();
+    //     started = true;
+    // }
 
     for (uint8_t i=0; i<3; i++){
 
