@@ -95,11 +95,6 @@
 
 void ModeTest::run()
 {
-    const float t = (float)(AP_HAL::millis()) * 0.001f;
-    const float amplitude = 450.0f;
-    const float freq = 0.5f;
-    float servo_out = sinf(2.0f * M_PI * freq * t) * amplitude;
-
     // 0 = SERVO1 physical pin
     SRV_Channel* ch = SRV_Channels::srv_channel(0);
     if (ch) {
