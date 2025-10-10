@@ -100,7 +100,26 @@ void ModeTest::run()
     const float freq = 0.5f;
     float servo_out = sinf(2.0f * M_PI * freq * t) * amplitude;
 
-    SRV_Channels::set_output_scaled(SRV_Channel::k_motor1, servo_out);
+    // 0 = SERVO1 physical pin
+    SRV_Channel* ch = SRV_Channels::srv_channel(0);
+    if (ch) {
+        uint16_t pwm_us = 1500 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 400.0f); // ±400us example
+        ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
+    }
+
+    // convert any scaled outputs to pending PWM
+    SRV_Channels::calc_pwm();
+
+    // cork/push pair to synchronise outputs
+    auto &srv = AP::srv();
+    srv.cork();
+
+    // write SRV_Channels into the HAL output buffers
     SRV_Channels::output_ch_all();
-    AP::srv().push();
+
+    // call the motor/ESC output routine so motor mixing / interlocks get handled
+    motors->output();   // in Copter code `motors` is available (same as motors_output_main)
+
+    // now push the buffered outputs to the HAL (actual pin update)
+    srv.push();
 }
