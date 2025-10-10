@@ -103,19 +103,21 @@ void ModeTest::run()
         started = true;
     }
 
-    // 0 = SERVO1 physical pin
-    SRV_Channel* ch = SRV_Channels::srv_channel(3);
+    for (uint8_t i=0; i<3; i++){
 
-    uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
-
-    if (ch) {
-        uint16_t pwm_us;
-        if (elapsed_time_ms < 20000){
-            pwm_us = 1000;
-        } else {
+        SRV_Channel* ch = SRV_Channels::srv_channel(i);
+    
+        uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
+    
+        if (ch) {
+            uint16_t pwm_us;
+            // if (elapsed_time_ms < 20000){
+            //     pwm_us = 1000;
+            // } else {
             pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
+            // }
+            ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
         }
-        ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
     }
 
     // convert any scaled outputs to pending PWM

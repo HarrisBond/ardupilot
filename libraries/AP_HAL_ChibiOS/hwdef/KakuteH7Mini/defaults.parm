@@ -7,5 +7,10 @@ SERIAL1_PROTOCOL 33
 
 #Custom Code Harris Bond
 #set up servo 1 for custom software control of motor 1
+FRAME_CLASS 1
+FRAME_TYPE 1
 SERVO1_FUNCTION 0
+SERVO2_FUNCTION 0
+SERVO3_FUNCTION 0
+SERVO4_FUNCTION 0
 
