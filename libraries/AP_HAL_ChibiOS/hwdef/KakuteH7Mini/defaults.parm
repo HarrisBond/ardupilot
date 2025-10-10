@@ -5,3 +5,7 @@ RELAY2_DEFAULT 1
 # UART1 for DJI Goggles
 SERIAL1_PROTOCOL 33
 
+#Custom Code Harris Bond
+#set up servo 1 for custom software control of motor 1
+SERVO1_FUNCTION 0
+
