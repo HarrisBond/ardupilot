@@ -103,28 +103,29 @@ void ModeTest::run()
     //     started = true;
     // }
 
-    // for (uint8_t i=0; i<3; i++){
+    for (uint8_t i=0; i<3; i++){
 
-        // SRV_Channel* ch = SRV_Channels::srv_channel(i);
+        SRV_Channel* ch = SRV_Channels::srv_channel(i);
     
-        // // uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
+        // uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
     
-        // if (ch) {
-        //     uint16_t pwm_us;
-        //     // if (elapsed_time_ms < 20000){
-        //     //     pwm_us = 1000;
-        //     // } else {
-        //     pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
-        //     // }
-        //     ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
-        // }
-    // }
-    float t = (float)AP_HAL::millis() * 0.001f;
-    float val = sinf(t) * 0.5f;  // normalized -1..1
+        if (ch) {
+            uint16_t pwm_us;
+            // if (elapsed_time_ms < 20000){
+            //     pwm_us = 1000;
+            // } else {
+            pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
+            // }
+            ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
+        }
+    }
+    
+    // float t = (float)AP_HAL::millis() * 0.001f;
+    // float val = sinf(t) * 0.5f;  // normalized -1..1
 
-    SRV_Channels::set_output_scaled(SRV_Channel::k_motor1, val);
-    SRV_Channels::set_output_scaled(SRV_Channel::k_motor2, val);
-    SRV_Channels::set_output_scaled(SRV_Channel::k_motor3, val);
+    // SRV_Channels::set_output_scaled(SRV_Channel::k_motor1, val);
+    // SRV_Channels::set_output_scaled(SRV_Channel::k_motor2, val);
+    // SRV_Channels::set_output_scaled(SRV_Channel::k_motor3, val);
     
 
     // convert any scaled outputs to pending PWM
