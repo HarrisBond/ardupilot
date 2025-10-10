@@ -96,9 +96,9 @@
 void ModeTest::run()
 {
     // 0 = SERVO1 physical pin
-    SRV_Channel* ch = SRV_Channels::srv_channel(1);
+    SRV_Channel* ch = SRV_Channels::srv_channel(3);
     if (ch) {
-        uint16_t pwm_us = 1500 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 400.0f); // ±400us example
+        uint16_t pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f); // ±400us example
         ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
     }
 
