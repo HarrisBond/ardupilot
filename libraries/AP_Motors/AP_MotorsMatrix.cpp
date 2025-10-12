@@ -588,11 +588,19 @@ bool AP_MotorsMatrix::setup_quad_matrix(motor_frame_type frame_type)
     }
     case MOTOR_FRAME_TYPE_X: {
         _frame_type_string = "X";
+        //original code:
+        // static const AP_MotorsMatrix::MotorDef motors[] {
+        //     {   45, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  1 },
+        //     { -135, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  3 },
+        //     {  -45, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   4 },
+        //     {  135, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   2 },
+        // };
+        //custom code:
         static const AP_MotorsMatrix::MotorDef motors[] {
-            {   45, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  1 },
-            { -135, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  3 },
-            {  -45, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   4 },
-            {  135, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   2 },
+            {   45, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  5 },
+            { -135, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  7 },
+            {  -45, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   8 },
+            {  135, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   6 },
         };
         add_motors(motors, ARRAY_SIZE(motors));
         break;

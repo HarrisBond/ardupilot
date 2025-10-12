@@ -96,30 +96,42 @@
 void ModeTest::run()
 {
 
-    // static uint32_t start_time;
-    // static bool started = false;
-    // if (!started) {
-    //     start_time = AP_HAL::millis();
-    //     started = true;
+    static uint32_t start_time;
+    static bool started = false;
+    if (!started) {
+        start_time = AP_HAL::millis();
+        started = true;
+    }
+
+    // for (uint8_t i=0; i<3; i++){
+
+    //     SRV_Channel* ch = SRV_Channels::srv_channel(i);
+    
+    //     // uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
+    
+    //     if (ch) {
+    //         uint16_t pwm_us;
+    //         // if (elapsed_time_ms < 20000){
+    //         //     pwm_us = 1000;
+    //         // } else {
+    //         pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
+    //         // }
+    //         ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
+    //     }
     // }
 
-    for (uint8_t i=0; i<3; i++){
-
-        SRV_Channel* ch = SRV_Channels::srv_channel(i);
-    
-        // uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
-    
-        if (ch) {
-            uint16_t pwm_us;
-            // if (elapsed_time_ms < 20000){
-            //     pwm_us = 1000;
-            // } else {
-            pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
-            // }
-            ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
+    SRV_Channel* ch = SRV_Channels::srv_channel(3);
+    uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
+    if (ch) {
+        uint16_t pwm_us;
+        if (elapsed_time_ms < 20000 || elapsed_time_ms > 40000){
+            pwm_us = 1000;
+        } else {
+            pwm_us = 1100;
         }
+        ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
     }
-    
+
     // float t = (float)AP_HAL::millis() * 0.001f;
     // float val = sinf(t) * 0.5f;  // normalized -1..1
 
