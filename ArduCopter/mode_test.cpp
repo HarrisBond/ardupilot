@@ -121,6 +121,9 @@ void ModeTest::run()
         }
     }
 
+    SRV_Channel* ch = SRV_Channels::srv_channel(3);
+    ch->set_output_pwm(1000, true);
+
     // SRV_Channel* ch = SRV_Channels::srv_channel(3);
     // uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
     // if (ch) {
