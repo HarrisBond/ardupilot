@@ -131,7 +131,7 @@ void ModeTest::run()
         if (elapsed_time_ms < 25000 || elapsed_time_ms > 35000){
             pwm_us = 1000;
         } else {
-            pwm_us = 1070;
+            pwm_us = 1050;
         }
         ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
     }
