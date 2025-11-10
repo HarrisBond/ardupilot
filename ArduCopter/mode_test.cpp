@@ -128,7 +128,7 @@ void ModeTest::run()
     uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
     if (ch) {
         uint16_t pwm_us;
-        float T = 20000
+        float T = 20000;
         pwm_us = floor(elapsed_time_ms / T) * 100 + 1000;
         if (elapsed_time_ms % T > 0.5 * T || pwm_us > 1500){
             pwm_us = 1000;
