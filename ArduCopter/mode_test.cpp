@@ -128,11 +128,11 @@ void ModeTest::run()
     uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
     if (ch) {
         uint16_t pwm_us;
-        if (elapsed_time_ms < 25000 || elapsed_time_ms > 35000){
+        float T = 20000
+        pwm_us = floor(elapsed_time_ms / T) * 100 + 1000;
+        if (elapsed_time_ms % T > 0.5 * T || pwm_us > 1500){
             pwm_us = 1000;
-        } else {
-            pwm_us = 1050;
-        }
+        } 
         ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
     }
 
