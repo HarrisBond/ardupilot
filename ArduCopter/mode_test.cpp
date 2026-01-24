@@ -95,34 +95,51 @@
 
 void ModeTest::run()
 {
+    // -------------------------------------------
+    // Default: servos to neutral and EDF off
 
-    static uint32_t start_time;
-    static bool started = false;
-    if (!started) {
-        start_time = AP_HAL::millis();
-        started = true;
-    }
-
+    // set all servos to neutral position
     for (uint8_t i=0; i<3; i++){
-
         SRV_Channel* ch = SRV_Channels::srv_channel(i);
-    
-        uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
-    
-        if (ch) {
-            uint16_t pwm_us;
-            // if (elapsed_time_ms < 20000){
-            //     pwm_us = 1000;
-            // } else {
-            // pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
-            pwm_us = elapsed_time_ms % 2000 < 1000 ? 1400 : 1600;
-            // }
-            ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
+        if (ch){
+            uint16_t pwm_us = 1500;
+            ch->set_output_pwm(pwm_us, true);
         }
     }
 
-    // SRV_Channel* ch = SRV_Channels::srv_channel(3);
-    // ch->set_output_pwm(1000, true);
+    // set EDF throttle to zero
+    SRV_Channel* ch = SRV_Channels::srv_channel(3);
+    ch->set_output_pwm(1000, true);
+
+    // ------------------------------------------
+    // Servo test: moves first 3 servos between 1400 and 1600 every second.
+
+    // static uint32_t start_time;
+    // static bool started = false;
+    // if (!started) {
+    //     start_time = AP_HAL::millis();
+    //     started = true;
+    // }
+
+    // for (uint8_t i=0; i<3; i++){
+
+    //     SRV_Channel* ch = SRV_Channels::srv_channel(i);
+    
+    //     uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
+    
+    //     if (ch) {
+    //         uint16_t pwm_us;
+    //         // if (elapsed_time_ms < 20000){
+    //         //     pwm_us = 1000;
+    //         // } else {
+    //         // pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
+    //         pwm_us = elapsed_time_ms % 2000 < 1000 ? 1400 : 1600;
+    //         // }
+    //         ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
+    //     }
+    // }
+
+    
 
     // ------------------------------------------
     // EDF thrust test: ramps from 1000 to 2000 in increments of 100.

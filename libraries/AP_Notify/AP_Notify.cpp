@@ -119,7 +119,7 @@ AP_Notify *AP_Notify::_singleton;
 #endif
 
 #ifndef NOTIFY_LED_LEN_DEFAULT
-#define NOTIFY_LED_LEN_DEFAULT 8
+#define NOTIFY_LED_LEN_DEFAULT 1
 #endif
 
 #ifndef HAL_BUZZER_PIN
