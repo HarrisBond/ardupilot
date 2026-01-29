@@ -21,8 +21,6 @@
 #include "RGBLed.h"
 #include "AP_Notify.h"
 #include <AP_AHRS/AP_AHRS.h>
-#include "AP_Vehicle.h"
-#include "Copter.h"
 
 extern const AP_HAL::HAL& hal;
 
@@ -348,21 +346,14 @@ void RGBLed::update()
         uint8_t battery_blue;
 
         if (display_battery){
-            // read battery voltage and convert to a colour
-            AP_Vehicle *vehicle = AP::vehicle.get_singleton();
-            Copter *copter = dynamic_cast<Copter *>(vehicle);
-            if (copter){
-                //cast succeeded, vehicle is a copter
-                //battery is read at 10Hz inside copter.cpp, so we dont need to call read() again here.
-                battery_voltage = copter->battery.voltage();
-                battery_percent = (battery_voltage - 22.2) / (25.2-22.2);
-                hue_degrees = battery_percent * 120.0; // 0% = red (0 deg), 100% = green (120 deg)
-                rgb battery_colour = hsv2rgb({hue_degrees, 1.0, 1.0});
-                battery_red = (uint8_t)(battery_colour.r * 15.0);
-                battery_green = (uint8_t)(battery_colour.g * 15.0);
-                battery_blue = (uint8_t)(battery_colour.b * 15.0);
-            }
+            battery_percent = flags.battery_percent;
+            hue_degrees = battery_percent * 120.0; // 0% = red (0 deg), 100% = green (120 deg)
+            rgb battery_colour = hsv2rgb({hue_degrees, 1.0, 1.0});
+            battery_red = (uint8_t)(battery_colour.r * 15.0);
+            battery_green = (uint8_t)(battery_colour.g * 15.0);
+            battery_blue = (uint8_t)(battery_colour.b * 15.0);
         }
+        
 
         // static bool toggle = false;
         // static uint32_t last_ms = 0;

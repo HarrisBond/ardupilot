@@ -158,6 +158,7 @@ const AP_Scheduler::Task Copter::scheduler_tasks[] = {
     SCHED_TASK_CLASS(AP_OpticalFlow,          &copter.optflow,             update,         200, 160,  12),
 #endif
     SCHED_TASK(update_batt_compass,   10,    120, 15),
+    SCHED_TASK(update_batt_percent_for_leds, 10, 100, 16),
     SCHED_TASK_CLASS(RC_Channels, (RC_Channels*)&copter.g2.rc_channels, read_aux_all,    10,  50,  18),
 #if TOY_MODE_ENABLED
     SCHED_TASK_CLASS(ToyMode,              &copter.g2.toy_mode,         update,          10,  50,  24),
@@ -614,6 +615,12 @@ void Copter::update_batt_compass(void)
         compass.set_voltage(battery.voltage());
         compass.read();
     }
+}
+
+void Copter::update_batt_percent_for_leds(void){
+    battery.read();
+    float battery_percent = (battery - 22.2) / (25.2 - 22.2);
+    notify.flags.battery_percent = battery_percent;
 }
 
 #if HAL_LOGGING_ENABLED
