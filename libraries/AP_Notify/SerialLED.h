@@ -40,6 +40,7 @@ protected:
 
     bool hw_set_rgb(uint8_t r, uint8_t g, uint8_t b) override;
     bool hw_set_rgb(uint8_t led, uint8_t r, uint8_t g, uint8_t b) override;
+    bool send_hw_rgb_changes() override;
 
 private:
     uint16_t enable_mask;
