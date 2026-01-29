@@ -215,9 +215,9 @@ void RGBLed::update()
             last_ms = AP_HAL::millis();
             toggle = !toggle;
             if (toggle){
-                set_rgb(15,0,15);
+                hw_set_rgb(1,15,0,15);
             } else {
-                set_rgb(0,0,0);
+                hw_set_rgb(1,0,0,0);
             }
         }
         return;

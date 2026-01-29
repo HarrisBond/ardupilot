@@ -32,9 +32,6 @@ bool SerialLED::init()
 
 bool SerialLED::hw_set_rgb(uint8_t red, uint8_t green, uint8_t blue)
 {
-    green=15;
-    red=0;
-    blue=0;
     if (enable_mask == 0) {
         // nothing is enabled, no pins set as LED output
         return true;
@@ -48,6 +45,33 @@ bool SerialLED::hw_set_rgb(uint8_t red, uint8_t green, uint8_t blue)
     for (uint16_t chan=0; chan<16; chan++) {
         if ((1U<<chan) & enable_mask) {
             led->set_RGB(chan+1, -1, red, green, blue);
+        }
+    }
+
+    for (uint16_t chan=0; chan<16; chan++) {
+        if ((1U<<chan) & enable_mask) {
+            led->send(chan+1);
+        }
+    }
+
+    return true;
+}
+
+bool SerialLED::hw_set_rgb(uint8_t led, uint8_t red, uint8_t green, uint8_t blue)
+{
+    if (enable_mask == 0) {
+        // nothing is enabled, no pins set as LED output
+        return true;
+    }
+
+    AP_SerialLED *led = AP_SerialLED::get_singleton();
+    if (led == nullptr) {
+        return false;
+    }
+
+    for (uint16_t chan=0; chan<16; chan++) {
+        if ((1U<<chan) & enable_mask) {
+            led->set_RGB(chan+1, led, red, green, blue);
         }
     }
 
