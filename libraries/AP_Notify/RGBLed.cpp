@@ -54,6 +54,12 @@ bool RGBLed::hw_set_rgb(uint8_t led, uint8_t red, uint8_t green, uint8_t blue)
     return hw_set_rgb(red, green, blue);
 }
 
+bool RGBLed::send_hw_rgb_changes()
+{
+    // default implementation does nothing
+    return true;
+}
+
 RGBLed::Source RGBLed::rgb_source() const
 {
     return Source(pNotify->_rgb_led_override.get());
@@ -233,6 +239,7 @@ void RGBLed::update()
             for (int i = 0; i < sizeof(rear_led_ids) / sizeof(rear_led_ids[0]); i++){
                 hw_set_rgb(rear_led_ids[i], 15, 0, 0); // Red
             }
+            send_hw_rgb_changes();
         }
         return;
     }
