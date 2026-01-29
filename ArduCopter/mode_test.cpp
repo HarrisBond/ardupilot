@@ -111,6 +111,8 @@ void ModeTest::run()
     SRV_Channel* ch = SRV_Channels::srv_channel(3);
     ch->set_output_pwm(1000, true);
 
+    // float voltage = battery.voltage();
+
     // ------------------------------------------
     // Servo test: moves first 3 servos between 1400 and 1600 every second.
 
