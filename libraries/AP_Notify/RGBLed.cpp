@@ -219,11 +219,19 @@ void RGBLed::update()
         static uint32_t last_ms = 0;
         if (AP_HAL::millis() - last_ms > 500){
             last_ms = AP_HAL::millis();
-            toggle = !toggle;
-            if (toggle){
-                hw_set_rgb(1,15,0,15);
-            } else {
-                hw_set_rgb(1,0,0,0);
+            // toggle = !toggle;
+            // if (toggle){
+            //     hw_set_rgb(1,15,0,15);
+            // } else {
+            //     hw_set_rgb(1,0,0,0);
+            // }
+            int front_led_ids[4] = {0, 1, 6, 7};
+            int rear_led_ids[4] = {2, 3, 4, 5};
+            for (int i = 0; i < sizeof(front_led_ids) / sizeof(front_led_ids[0]); i++){
+                hw_set_rgb(front_led_ids[i], 15, 15, 15); // White
+            }
+            for (int i = 0; i < sizeof(rear_led_ids) / sizeof(rear_led_ids[0]); i++){
+                hw_set_rgb(rear_led_ids[i], 15, 0, 0); // Red
             }
         }
         return;

@@ -59,9 +59,6 @@ bool SerialLED::hw_set_rgb(uint8_t red, uint8_t green, uint8_t blue)
 
 bool SerialLED::hw_set_rgb(uint8_t led_id, uint8_t red, uint8_t green, uint8_t blue)
 {
-    red = 0;
-    green = 15;
-    blue = 0;
     if (enable_mask == 0) {
         // nothing is enabled, no pins set as LED output
         return true;
