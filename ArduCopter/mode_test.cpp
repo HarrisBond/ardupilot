@@ -90,14 +90,29 @@
 
 
 
-
-
-
-void ModeTest::run()
+void ModeTest::test_servos(uint32_t start_time)
 {
-    // -------------------------------------------
-    // Default: servos to neutral and EDF off
+    // Servo test: moves first 3 servos between 1400 and 1600 every second.
+    for (uint8_t i=0; i<3; i++){
 
+        SRV_Channel* ch = SRV_Channels::srv_channel(i);
+        uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
+    
+        if (ch) {
+            uint16_t pwm_us;
+            // if (elapsed_time_ms < 20000){
+            //     pwm_us = 1000;
+            // } else {
+            // pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
+            pwm_us = elapsed_time_ms % 2000 < 1000 ? 1400 : 1600;
+            // }
+            ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
+        }
+    }
+}
+
+void ModeTest::neutralise_servos_and_edf()
+{
     // set all servos to neutral position
     for (uint8_t i=0; i<3; i++){
         SRV_Channel* ch = SRV_Channels::srv_channel(i);
@@ -110,40 +125,25 @@ void ModeTest::run()
     // set EDF throttle to zero
     SRV_Channel* ch = SRV_Channels::srv_channel(3);
     ch->set_output_pwm(1000, true);
+}
 
-    // float voltage = battery.voltage();
 
-    // ------------------------------------------
-    // Servo test: moves first 3 servos between 1400 and 1600 every second.
+void ModeTest::run()
+{
+    static uint32_t start_time;
+    static bool started = false;
+    if (!started) {
+        start_time = AP_HAL::millis();
+        started = true;
+    }
 
-    // static uint32_t start_time;
-    // static bool started = false;
-    // if (!started) {
-    //     start_time = AP_HAL::millis();
-    //     started = true;
-    // }
-
-    // for (uint8_t i=0; i<3; i++){
-
-    //     SRV_Channel* ch = SRV_Channels::srv_channel(i);
+    if (motors->armed()){
+        test_servos(start_time);
+    } else {
+        neutralise_servos_and_edf();
+    }
     
-    //     uint32_t elapsed_time_ms = AP_HAL::millis() - start_time;
     
-    //     if (ch) {
-    //         uint16_t pwm_us;
-    //         // if (elapsed_time_ms < 20000){
-    //         //     pwm_us = 1000;
-    //         // } else {
-    //         // pwm_us = 1050 + (int16_t)(sinf((float)AP_HAL::millis() / 1000.0f) * 50.0f);
-    //         pwm_us = elapsed_time_ms % 2000 < 1000 ? 1400 : 1600;
-    //         // }
-    //         ch->set_output_pwm(pwm_us, true);   // force = true to ensure write
-    //     }
-    // }
-
-    
-
-    // ------------------------------------------
     // EDF thrust test: ramps from 1000 to 2000 in increments of 100.
 
     // SRV_Channel* ch = SRV_Channels::srv_channel(3);
@@ -172,6 +172,15 @@ void ModeTest::run()
     // SRV_Channels::set_output_scaled(SRV_Channel::k_motor3, val);
     
 
+
+
+
+
+
+
+
+
+    
     // convert any scaled outputs to pending PWM
     SRV_Channels::calc_pwm();
 

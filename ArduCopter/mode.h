@@ -2099,6 +2099,11 @@ public:
     bool allows_flip() const override { return true; }
     bool allows_entry_in_rc_failsafe() const override { return false; }
 
+    // Harris Bond custom functions:
+    void test_servos();
+    void neutralise_servos_and_edf();
+
+
 protected:
 
     const char *name() const override { return "TEST"; }
