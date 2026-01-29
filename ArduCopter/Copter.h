@@ -712,6 +712,7 @@ private:
     void rc_loop();
     void throttle_loop();
     void update_batt_compass(void);
+    void update_batt_percent_for_leds(void);
     void loop_rate_logging();
     void ten_hz_logging_loop();
     void twentyfive_hz_logging();
