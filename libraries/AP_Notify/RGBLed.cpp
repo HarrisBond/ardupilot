@@ -325,7 +325,6 @@ void RGBLed::update()
     bool custom_blink_test_enabled = true;
     if (custom_blink_test_enabled){
         static bool display_battery = true;
-        float battery_voltage = -1.0;
         float battery_percent = -1.0;
         uint8_t battery_red;
         uint8_t battery_green;
@@ -351,7 +350,7 @@ void RGBLed::update()
             // } else {
             //     hw_set_rgb(1,0,0,0);
             // }
-        if (display_battery && battery_voltage > 0.0){
+        if (display_battery && battery_percent > 0.0){
             set_rgb(battery_red, battery_green, battery_blue);
             return;
         }
