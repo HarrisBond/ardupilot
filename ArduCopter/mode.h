@@ -2100,7 +2100,7 @@ public:
     bool allows_entry_in_rc_failsafe() const override { return false; }
 
     // Harris Bond custom functions:
-    void test_servos();
+    void test_servos(uint32_t start_time);
     void neutralise_servos_and_edf();
 
 
