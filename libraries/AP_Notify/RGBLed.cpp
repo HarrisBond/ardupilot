@@ -215,7 +215,7 @@ void RGBLed::update()
     // Custom Code, Harris Bond
     bool custom_blink_test_enabled = true;
     if (custom_blink_test_enabled){
-        static bool toggle = false;
+        // static bool toggle = false;
         static uint32_t last_ms = 0;
         if (AP_HAL::millis() - last_ms > 500){
             last_ms = AP_HAL::millis();
