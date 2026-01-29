@@ -21,6 +21,8 @@
 #include "RGBLed.h"
 #include "AP_Notify.h"
 #include <AP_AHRS/AP_AHRS.h>
+#include "AP_Vehicle.h"
+#include "Copter.h"
 
 extern const AP_HAL::HAL& hal;
 
@@ -218,29 +220,174 @@ uint32_t RGBLed::get_colour_sequence_traffic_light(void) const
 // at 50Hz
 void RGBLed::update()
 {
+    typedef struct {
+        double r;       // a fraction between 0 and 1
+        double g;       // a fraction between 0 and 1
+        double b;       // a fraction between 0 and 1
+    } rgb;
+
+    typedef struct {
+        double h;       // angle in degrees
+        double s;       // a fraction between 0 and 1
+        double v;       // a fraction between 0 and 1
+    } hsv;
+
+    static hsv   rgb2hsv(rgb in);
+    static rgb   hsv2rgb(hsv in);
+
+    hsv rgb2hsv(rgb in)
+    {
+        hsv         out;
+        double      min, max, delta;
+
+        min = in.r < in.g ? in.r : in.g;
+        min = min  < in.b ? min  : in.b;
+
+        max = in.r > in.g ? in.r : in.g;
+        max = max  > in.b ? max  : in.b;
+
+        out.v = max;                                // v
+        delta = max - min;
+        if (delta < 0.00001)
+        {
+            out.s = 0;
+            out.h = 0; // undefined, maybe nan?
+            return out;
+        }
+        if( max > 0.0 ) { // NOTE: if Max is == 0, this divide would cause a crash
+            out.s = (delta / max);                  // s
+        } else {
+            // if max is 0, then r = g = b = 0              
+            // s = 0, h is undefined
+            out.s = 0.0;
+            out.h = NAN;                            // its now undefined
+            return out;
+        }
+        if( in.r >= max )                           // > is bogus, just keeps compilor happy
+            out.h = ( in.g - in.b ) / delta;        // between yellow & magenta
+        else
+        if( in.g >= max )
+            out.h = 2.0 + ( in.b - in.r ) / delta;  // between cyan & yellow
+        else
+            out.h = 4.0 + ( in.r - in.g ) / delta;  // between magenta & cyan
+
+        out.h *= 60.0;                              // degrees
+
+        if( out.h < 0.0 )
+            out.h += 360.0;
+
+        return out;
+    }
+
+
+    rgb hsv2rgb(hsv in)
+    {
+        double      hh, p, q, t, ff;
+        long        i;
+        rgb         out;
+
+        if(in.s <= 0.0) {       // < is bogus, just shuts up warnings
+            out.r = in.v;
+            out.g = in.v;
+            out.b = in.v;
+            return out;
+        }
+        hh = in.h;
+        if(hh >= 360.0) hh = 0.0;
+        hh /= 60.0;
+        i = (long)hh;
+        ff = hh - i;
+        p = in.v * (1.0 - in.s);
+        q = in.v * (1.0 - (in.s * ff));
+        t = in.v * (1.0 - (in.s * (1.0 - ff)));
+
+        switch(i) {
+        case 0:
+            out.r = in.v;
+            out.g = t;
+            out.b = p;
+            break;
+        case 1:
+            out.r = q;
+            out.g = in.v;
+            out.b = p;
+            break;
+        case 2:
+            out.r = p;
+            out.g = in.v;
+            out.b = t;
+            break;
+
+        case 3:
+            out.r = p;
+            out.g = q;
+            out.b = in.v;
+            break;
+        case 4:
+            out.r = t;
+            out.g = p;
+            out.b = in.v;
+            break;
+        case 5:
+        default:
+            out.r = in.v;
+            out.g = p;
+            out.b = q;
+            break;
+        }
+        return out;     
+    }
     // Custom Code, Harris Bond
     bool custom_blink_test_enabled = true;
     if (custom_blink_test_enabled){
+        static bool display_battery = true;
+        float battery_voltage = -1.0;
+        float battery_percent = -1.0;
+        uint8_t battery_red;
+        uint8_t battery_green;
+        uint8_t battery_blue;
+
+        if (display_battery){
+            // read battery voltage and convert to a colour
+            AP_Vehicle *vehicle = AP::vehicle.get_singleton();
+            Copter *copter = dynamic_cast<Copter *>(vehicle);
+            if (copter){
+                //cast succeeded, vehicle is a copter
+                //battery is read at 10Hz inside copter.cpp, so we dont need to call read() again here.
+                battery_voltage = copter->battery.voltage();
+                battery_percent = (battery_voltage - 22.2) / (25.2-22.2);
+                hue_degrees = battery_percent * 120.0; // 0% = red (0 deg), 100% = green (120 deg)
+                rgb battery_colour = hsv2rgb({hue_degrees, 1.0, 1.0});
+                battery_red = (uint8_t)(battery_colour.r * 15.0);
+                battery_green = (uint8_t)(battery_colour.g * 15.0);
+                battery_blue = (uint8_t)(battery_colour.b * 15.0);
+            }
+        }
+
         // static bool toggle = false;
-        static uint32_t last_ms = 0;
-        if (AP_HAL::millis() - last_ms > 500){
-            last_ms = AP_HAL::millis();
+        // static uint32_t last_ms = 0;
+        // if (AP_HAL::millis() - last_ms > 500){
+        //     last_ms = AP_HAL::millis();
             // toggle = !toggle;
             // if (toggle){
             //     hw_set_rgb(1,15,0,15);
             // } else {
             //     hw_set_rgb(1,0,0,0);
             // }
-            int front_led_ids[4] = {0, 1, 6, 7};
-            int rear_led_ids[4] = {2, 3, 4, 5};
-            for (int i = 0; i < sizeof(front_led_ids) / sizeof(front_led_ids[0]); i++){
-                hw_set_rgb(front_led_ids[i], 15, 15, 15); // White
-            }
-            for (int i = 0; i < sizeof(rear_led_ids) / sizeof(rear_led_ids[0]); i++){
-                hw_set_rgb(rear_led_ids[i], 15, 0, 0); // Red
-            }
-            send_hw_rgb_changes();
+        if (display_battery && battery_voltage > 0.0){
+            set_rgb(battery_red, battery_green, battery_blue);
+            return;
         }
+        int front_led_ids[4] = {0, 1, 6, 7};
+        int rear_led_ids[4] = {2, 3, 4, 5};
+        for (int i = 0; i < sizeof(front_led_ids) / sizeof(front_led_ids[0]); i++){
+            hw_set_rgb(front_led_ids[i], 15, 14, 17); // White
+        }
+        for (int i = 0; i < sizeof(rear_led_ids) / sizeof(rear_led_ids[0]); i++){
+            hw_set_rgb(rear_led_ids[i], 15, 0, 0); // Red
+        }
+        send_hw_rgb_changes();
+        // }
         return;
     }
     // End Custom Code
