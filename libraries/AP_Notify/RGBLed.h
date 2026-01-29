@@ -44,7 +44,7 @@ public:
 protected:
     // methods implemented in hardware specific classes
     virtual bool hw_set_rgb(uint8_t red, uint8_t green, uint8_t blue) = 0;
-    virtual bool hw_set_rgb(uint8_t led, uint8_t red, uint8_t green, uint8_t blue) = 0;
+    bool hw_set_rgb(uint8_t led, uint8_t red, uint8_t green, uint8_t blue) = 0;
 
     // set_rgb - set color as a combination of red, green and blue levels from 0 ~ 15
     virtual void _set_rgb(uint8_t red, uint8_t green, uint8_t blue);
