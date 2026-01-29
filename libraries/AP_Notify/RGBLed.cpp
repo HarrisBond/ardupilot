@@ -48,6 +48,12 @@ void RGBLed::_set_rgb(uint8_t red, uint8_t green, uint8_t blue)
     }
 }
 
+bool RGBLed::hw_set_rgb(uint8_t led, uint8_t red, uint8_t green, uint8_t blue)
+{
+    // default implementation ignores led id
+    return hw_set_rgb(red, green, blue);
+}
+
 RGBLed::Source RGBLed::rgb_source() const
 {
     return Source(pNotify->_rgb_led_override.get());
