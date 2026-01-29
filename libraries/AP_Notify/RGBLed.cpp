@@ -332,7 +332,7 @@ void RGBLed::update()
         uint8_t battery_blue;
 
         if (display_battery){
-            battery_percent = flags.battery_percent;
+            battery_percent = AP_Notify::flags.battery_percent;
             hue_degrees = battery_percent * 120.0; // 0% = red (0 deg), 100% = green (120 deg)
             rgb battery_colour = hsv2rgb({hue_degrees, 1.0, 1.0});
             battery_red = (uint8_t)(battery_colour.r * 15.0);
