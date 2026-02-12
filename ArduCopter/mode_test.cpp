@@ -88,22 +88,22 @@
 
 
 
-void mulMat(int mat1[][C1], int mat2[][C2])
-{
-    int rslt[R1][C2];
+// void mulMat(int mat1[][C1], int mat2[][C2])
+// {
+//     int rslt[R1][C2];
 
-    for (int i = 0; i < R1; i++) {
-        for (int j = 0; j < C2; j++) {
-            rslt[i][j] = 0;
+//     for (int i = 0; i < R1; i++) {
+//         for (int j = 0; j < C2; j++) {
+//             rslt[i][j] = 0;
 
-            for (int k = 0; k < R2; k++) {
-                rslt[i][j] += mat1[i][k] * mat2[k][j];
-            }
-        }
-    }
+//             for (int k = 0; k < R2; k++) {
+//                 rslt[i][j] += mat1[i][k] * mat2[k][j];
+//             }
+//         }
+//     }
 
-    return rslt;
-}
+//     return rslt;
+// }
 
 void ModeTest::test_servos(uint32_t start_time)
 {
