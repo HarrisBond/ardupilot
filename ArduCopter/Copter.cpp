@@ -623,7 +623,7 @@ void Copter::update_batt_percent_for_leds(void){
     // Location loc;
     // ahrs.get_location(loc);
     Vector3f pos;
-    ahrs.get_relative_position_NED_origin_float(pos);
+    if (!ahrs.get_relative_position_NED_origin_float(pos)) return;
     // Location::AltFrame alt_frame = loc.get_alt_frame();
     // float alt;
     // if (!loc.get_alt_m(alt_frame, alt)) return;
