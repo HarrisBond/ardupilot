@@ -153,13 +153,20 @@ void ModeTest::run()
     }
 
     if (motors->armed()){
-        // note yaw and pitch are inverted here, because I use forward left up axes, but ardupilot uses forward right down.
-        // float yaw = -ahrs.get_yaw_rad();
-        // float pitch = -ahrs.get_pitch_rad();
+        // // note yaw and pitch are inverted here, because I use forward left up axes, but ardupilot uses forward right down.
         // float roll = ahrs.get_roll_rad();
+        // float pitch = -ahrs.get_pitch_rad();
+        // float yaw = -ahrs.get_yaw_rad();
 
+        // // gyro vector is roll pitch yaw, in rad/sec
         // Vector3f angular_rate = ahrs.get_gyro();
-        // float gyro_x = angular_rate.x;
+        // float roll_rate = angular_rate.x;
+        // float pitch_rate = -angular_rate.y;
+        // float yaw_rate = -angular_rate.z;
+
+        // Location loc;
+        // ahrs.get_location(loc);
+        // ahrs.get_location_from_home_offset_NED();
 
 
         test_servos(start_time);

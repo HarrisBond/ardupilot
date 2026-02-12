@@ -620,8 +620,9 @@ void Copter::update_batt_compass(void)
 void Copter::update_batt_percent_for_leds(void){
     battery.read();
     float battery_percent = (battery.voltage() - 22.2) / (25.2 - 22.2);
-    Vector3f angular_rate = ahrs.get_gyro();
-    battery_percent = angular_rate.x;
+    Location loc;
+    ahrs.get_location(loc);
+    battery_percent = loc.get_alt_m();
     notify.flags.battery_percent = battery_percent;
 }
 
