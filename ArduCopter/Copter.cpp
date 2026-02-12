@@ -625,7 +625,7 @@ void Copter::update_batt_percent_for_leds(void){
     Location::AltFrame alt_frame = loc.get_alt_frame();
     float alt;
     if (!loc.get_alt_m(alt_frame, alt)) return;
-    battery_percent = alt;
+    battery_percent = -alt;
     notify.flags.battery_percent = battery_percent;
 }
 
