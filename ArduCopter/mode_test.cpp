@@ -164,9 +164,8 @@ void ModeTest::run()
         // float pitch_rate = -angular_rate.y;
         // float yaw_rate = -angular_rate.z;
 
-        // Location loc;
-        // ahrs.get_location(loc);
-        // ahrs.get_location_from_home_offset_NED();
+        // Vector3f pos;
+        // if (!ahrs.get_relative_position_NED_origin_float(pos)) return;
 
 
         test_servos(start_time);
