@@ -154,10 +154,10 @@ void ModeTest::run()
 
     if (motors->armed()){
         // ahrs.get_yaw_rad();
-        float yaw = ahrs.get_yaw_rad();
-        float pitch = ahrs.get_pitch_rad();
-        float roll = ahrs.get_roll_rad();
-        
+        // float yaw = ahrs.get_yaw_rad();
+        // float pitch = ahrs.get_pitch_rad();
+        // float roll = ahrs.get_roll_rad();
+
         test_servos(start_time);
     } else {
         neutralise_servos_and_edf();
