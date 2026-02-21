@@ -192,14 +192,14 @@ void ModeTest::get_K(Matrix<float, 4, 13>& K, const Matrix<float, 13, 1>& x){
     // cubic interpolation matrix
     float yaw = x(6, 0);
 
-    static const Matrix<float, 4, 4> M;
+    static Matrix<float, 4, 4> M;
     static const float pi = 3.14159265358979323846f;
     M(0,0) = -1.0; M(0,1) = 3.0; M(0,2) = -3.0; M(0,3) = 1.0;
     M(1,0) = 2.0; M(1,1) = -5.0; M(1,2) = 4.0; M(1,3) = -1.0;
     M(2,0) = -1.0; M(2,1) = 0.0; M(2,2) = 1.0; M(2,3) = 0.0;
     M(3,0) = 0.0; M(3,1) = 2.0; M(3,2) = 0.0; M(3,3) = 0.0;
 
-    static const Matrix<float 4, 13> K_matrices[10];
+    static Matrix<float 4, 13> K_matrices[10];
     K_matrices[0](0, 0) = 2.33460; K_matrices[0](0, 1) = -1.10286; K_matrices[0](0, 2) = -0.24114; K_matrices[0](0, 3) = 2.71223; K_matrices[0](0, 4) = -1.27996; K_matrices[0](0, 5) = -0.72956; K_matrices[0](0, 6) = -1.82558; K_matrices[0](0, 7) = 7.51314; K_matrices[0](0, 8) = 4.47319; K_matrices[0](0, 9) = -0.81583; K_matrices[0](0, 10) = 0.12480; K_matrices[0](0, 11) = -1.23988; K_matrices[0](0, 12) = -0.01104; 
     K_matrices[0](1, 0) = -0.21219; K_matrices[0](1, 1) = 2.57325; K_matrices[0](1, 2) = -0.24114; K_matrices[0](1, 3) = -0.24540; K_matrices[0](1, 4) = 2.98884; K_matrices[0](1, 5) = -0.72956; K_matrices[0](1, 6) = -1.82558; K_matrices[0](1, 7) = 0.13040; K_matrices[0](1, 8) = -8.74317; K_matrices[0](1, 9) = -0.81583; K_matrices[0](1, 10) = -1.14336; K_matrices[0](1, 11) = 0.51291; K_matrices[0](1, 12) = -0.01104; 
     K_matrices[0](2, 0) = -2.12241; K_matrices[0](2, 1) = -1.47039; K_matrices[0](2, 2) = -0.24114; K_matrices[0](2, 3) = -2.46683; K_matrices[0](2, 4) = -1.70888; K_matrices[0](2, 5) = -0.72956; K_matrices[0](2, 6) = -1.82558; K_matrices[0](2, 7) = -7.64354; K_matrices[0](2, 8) = 4.26998; K_matrices[0](2, 9) = -0.81583; K_matrices[0](2, 10) = 1.01856; K_matrices[0](2, 11) = 0.72696; K_matrices[0](2, 12) = -0.01104; 
