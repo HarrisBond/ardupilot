@@ -241,7 +241,7 @@ void ModeTest::get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x){
     K_matrices[9](2, 0) = -2.12241; K_matrices[9](2, 1) = -1.47039; K_matrices[9](2, 2) = -0.24114; K_matrices[9](2, 3) = -2.46683; K_matrices[9](2, 4) = -1.70888; K_matrices[9](2, 5) = -0.72956; K_matrices[9](2, 6) = -1.82558; K_matrices[9](2, 7) = -7.64354; K_matrices[9](2, 8) = 4.26998; K_matrices[9](2, 9) = -0.81583; K_matrices[9](2, 10) = 1.01856; K_matrices[9](2, 11) = 0.72696; K_matrices[9](2, 12) = -0.01104; 
     K_matrices[9](3, 0) = -0.00000; K_matrices[9](3, 1) = 0.00000; K_matrices[9](3, 2) = 31.62002; K_matrices[9](3, 3) = -0.00000; K_matrices[9](3, 4) = 0.00000; K_matrices[9](3, 5) = 92.47258; K_matrices[9](3, 6) = -0.04177; K_matrices[9](3, 7) = -0.00000; K_matrices[9](3, 8) = -0.00000; K_matrices[9](3, 9) = -0.01445; K_matrices[9](3, 10) = 0.00000; K_matrices[9](3, 11) = 0.00000; K_matrices[9](3, 12) = 1.36850; 
     
-    i = (yaw + pi) * (N-1) / (2 * pi);
+    float i = (yaw + pi) * (N-1) / (2 * pi);
     float t = fract(i);
     if ((i % 1) == 0){
         i = i + 0.0001;
