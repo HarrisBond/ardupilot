@@ -350,7 +350,7 @@ void RGBLed::update()
             // } else {
             //     hw_set_rgb(1,0,0,0);
             // }
-        if (display_battery && battery_percent > 0.0){
+        if (display_battery){ //  && battery_percent > 0.0
             set_rgb(battery_red, battery_green, battery_blue);
             return;
         }
