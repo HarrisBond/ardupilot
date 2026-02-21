@@ -166,10 +166,10 @@ void ModeTest::get_state_vector(Matrix<float, 13, 1>& x){
     x(2,0) = world_pos.z;
 
     Vector3f world_vel;
-    ahrs.get_velocity_NED(world_vel);
+    if (!ahrs.get_velocity_NED(world_vel)) return;
     x(3,0) = world_vel.x;
-    x(4,0) = world_vel.y;
-    x(5,0) = world_vel.z;
+    x(4,0) = -world_vel.y;
+    x(5,0) = -world_vel.z;
 
     // // note yaw and pitch are inverted here, because I use forward left up axes, but ardupilot uses forward right down.
     x(6,0) = -ahrs.get_yaw_rad();
