@@ -250,7 +250,7 @@ void ModeTest::get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x){
         i += eps;
         t += eps;
     }
-    int i_0 = int((floor(i) - 1) % (num_K));int i_1 = int((floor(i)) % (num_K));int i_2 = int((ceil(i)) % (num_K));int i_3 = int((ceil(i) + 1) % (num_K));
+    int i_0 = (int(floor(i) - 1) % (num_K));int i_1 = (int(floor(i)) % (num_K));int i_2 = (int(ceil(i)) % (num_K));int i_3 = (int(ceil(i) + 1) % (num_K));
 
     Matrix<float, 4, 13> K_0 = K_matrices[i_0];Matrix<float, 4, 13> K_1 = K_matrices[i_1];Matrix<float, 4, 13> K_2 = K_matrices[i_2];Matrix<float, 4, 13> K_3 = K_matrices[i_3];
 
