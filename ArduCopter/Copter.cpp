@@ -629,7 +629,7 @@ void Copter::update_batt_percent_for_leds(void){
     // if (!loc.get_alt_m(alt_frame, alt)) return;
     // battery_percent = -alt;
     // battery_percent = pos.x;
-    Vector3 gyro_rate = ahrs.get_gyro();
+    // Vector3 gyro_rate = ahrs.get_gyro();
     notify.flags.battery_percent = battery_percent;
 }
 
