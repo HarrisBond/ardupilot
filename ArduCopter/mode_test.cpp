@@ -244,8 +244,8 @@ void ModeTest::get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x){
     
 
     float i = (yaw + pi) * (num_K-1) / (2 * pi);
-    float t = fract(i);
-    if ((i % 1) == 0){
+    float t = i % 1;
+    if (t == 0.0){
         i = i + 0.0001;
     }
     i_0 = int((floor(i) - 1) % (num_K));i_1 = int((floor(i)) % (num_K));i_2 = int((ceil(i)) % (num_K));i_3 = int((ceil(i) + 1) % (num_K));
