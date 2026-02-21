@@ -640,15 +640,15 @@ void Copter::update_batt_percent_for_leds(void){
 
     Vector3f world_pos;
     if (!ahrs.get_relative_position_NED_origin_float(world_pos)) return;
-    x(0,0) = world_pos.x;
-    x(1,0) = world_pos.y;
-    x(2,0) = world_pos.z;
+    x(0,0) = 0.0;//world_pos.x;
+    x(1,0) = 0.0;//world_pos.y;
+    x(2,0) = 0.0;//world_pos.z;
 
     Vector3f world_vel;
     if (!ahrs.get_velocity_NED(world_vel)) return;
-    x(3,0) = world_vel.x;
-    x(4,0) = -world_vel.y;
-    x(5,0) = -world_vel.z;
+    x(3,0) = 0.0;//world_vel.x;
+    x(4,0) = 0.0;//-world_vel.y;
+    x(5,0) = 0.0;//-world_vel.z;
 
     // // note yaw and pitch are inverted here, because I use forward left up axes, but ardupilot uses forward right down.
     x(6,0) = -ahrs.get_yaw_rad();
@@ -663,7 +663,7 @@ void Copter::update_batt_percent_for_leds(void){
 
     static uint64_t last_time=0;
     omega_zr += omega_zr_dot * (AP_HAL::micros64() - last_time) / 1000000.0f;
-    x(12,0) = omega_zr;
+    x(12,0) = 0.0;//omega_zr;
     last_time = AP_HAL::micros64();
 
 
