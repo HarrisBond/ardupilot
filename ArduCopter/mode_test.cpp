@@ -268,12 +268,12 @@ void ModeTest::get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x){
 
 void ModeTest::run()
 {
-    static uint32_t start_time;
-    static bool started = false;
-    if (!started) {
-        start_time = AP_HAL::millis();
-        started = true;
-    }
+    // static uint32_t start_time;
+    // static bool started = false;
+    // if (!started) {
+        // start_time = AP_HAL::millis();
+        // started = true;
+    // }
 
     if (motors->armed()){
 
