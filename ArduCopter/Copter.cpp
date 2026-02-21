@@ -622,13 +622,14 @@ void Copter::update_batt_percent_for_leds(void){
     float battery_percent = (battery.voltage() - 22.2) / (25.2 - 22.2);
     // Location loc;
     // ahrs.get_location(loc);
-    Vector3f pos;
-    if (!ahrs.get_relative_position_NED_origin_float(pos)) return;
+    // Vector3f pos;
+    // if (!ahrs.get_relative_position_NED_origin_float(pos)) return;
     // Location::AltFrame alt_frame = loc.get_alt_frame();
     // float alt;
     // if (!loc.get_alt_m(alt_frame, alt)) return;
     // battery_percent = -alt;
-    battery_percent = pos.x;
+    // battery_percent = pos.x;
+    Vector3 gyro_rate = ahrs.get_gyro();
     notify.flags.battery_percent = battery_percent;
 }
 

@@ -4,6 +4,7 @@
 #include <AP_Math/chirp.h>
 #include <AP_ExternalControl/AP_ExternalControl_config.h> // TODO why is this needed if Copter.h includes this
 #include <AP_HAL/Semaphores.h>
+#include "harris_matrix.h"
 
 #if AP_COPTER_ADVANCED_FAILSAFE_ENABLED
 #include "afs_copter.h"
@@ -2102,6 +2103,10 @@ public:
     // Harris Bond custom functions:
     void test_servos(uint32_t start_time);
     void neutralise_servos_and_edf();
+    void set_servos(float alpha_0, float alpha_1, float alpha_2);
+    void get_state_vector(Matrix<float, 13, 1>& x);
+    void get_K(Matrix<float, 4, 13>& K, const Matrix<float, 13, 1>& x);
+    float omega_zr, omega_zr_dot;
 
 
 protected:
