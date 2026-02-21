@@ -285,9 +285,9 @@ void ModeTest::run()
         get_K(K, x);
 
         Matrix<float, 4, 1> u;
-        u = -K * x;
+        u = K * x;
 
-        set_servos(u(0, 0), u(1, 0), u(2, 0));
+        set_servos(-u(0, 0), -u(1, 0), -u(2, 0));
 
         omega_zr_dot = u(3, 0);
 
