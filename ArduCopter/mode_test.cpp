@@ -188,7 +188,7 @@ void ModeTest::get_state_vector(Matrix<float, 13, 1>& x){
     last_time = AP_HAL::micros64();
 }
 
-void ModeTest::get_K(Matrix<float, 4, 13>& K, const Matrix<float, 13, 1>& x){
+void ModeTest::get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x){
     // cubic interpolation matrix
     float yaw = x(6, 0);
 
