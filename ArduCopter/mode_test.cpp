@@ -276,25 +276,6 @@ void ModeTest::run()
     }
 
     if (motors->armed()){
-        
-        Matrix<float, 2, 3> A;
-        Matrix<float, 3, 2> B;
-
-        // Fill manually
-        A(0,0)=1; A(0,1)=2; A(0,2)=3;
-        A(1,0)=4; A(1,1)=5; A(1,2)=6;
-
-        B(0,0)=7;  B(0,1)=8;
-        B(1,0)=9;  B(1,1)=10;
-        B(2,0)=11; B(2,1)=12;
-
-        // Matrix multiply
-        auto C = A * B;
-
-        // Vector multiply
-        float v[3] = {1,2,3};
-        float r[2];
-        A.multiply(v, r);
 
         Matrix<float, 13, 1> x;
         get_state_vector(x);
