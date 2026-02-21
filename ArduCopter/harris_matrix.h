@@ -7,7 +7,7 @@ class Matrix
 public:
     T data[Rows][Cols] = {};
 
-    constexpr Matrix() noexcept = default;
+    Matrix() noexcept = default;
 
     explicit Matrix(const T& value) noexcept
     {
@@ -17,19 +17,19 @@ public:
     }
 
     // Non-const access
-    constexpr T& operator()(std::size_t r, std::size_t c) noexcept
+    T& operator()(std::size_t r, std::size_t c) noexcept
     {
         return data[r][c];
     }
 
     // // Const access
-    // constexpr const T& operator()(std::size_t r, std::size_t c) const noexcept
+    // const T& operator()(std::size_t r, std::size_t c) const noexcept
     // {
     //     return data[r][c];
     // }
 
     // Addition
-    constexpr Matrix operator+(const Matrix& rhs) const noexcept
+    Matrix operator+(const Matrix& rhs) const noexcept
     {
         Matrix result;
         for (std::size_t i = 0; i < Rows; ++i)
@@ -39,7 +39,7 @@ public:
     }
 
     // Subtraction
-    constexpr Matrix operator-(const Matrix& rhs) const noexcept
+    Matrix operator-(const Matrix& rhs) const noexcept
     {
         Matrix result;
         for (std::size_t i = 0; i < Rows; ++i)
@@ -50,7 +50,7 @@ public:
 
     // Matrix multiplication
     template<std::size_t OtherCols>
-    constexpr Matrix<T, Rows, OtherCols>
+    Matrix<T, Rows, OtherCols>
     operator*(const Matrix<T, Cols, OtherCols>& rhs) const noexcept
     {
         Matrix<T, Rows, OtherCols> result{};
