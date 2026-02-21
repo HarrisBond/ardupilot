@@ -128,11 +128,11 @@ void ModeTest::test_servos(uint32_t start_time)
 }
 
 void ModeTest::set_servos(float alpha_0, float alpha_1, float alpha_2){
-    float clamp(const float val, const float min_val, const float max_val){
+    auto clamp = [](const float val, const float min_val, const float max_val){
         if (val < min_val) return min_val;
         if (val > max_val) return max_val;
         return val;
-    }
+    };
     Matrix<float, 3, 1> alpha;
     alpha(0, 0) = clamp(alpha_0, -10.0f, 10.0f);
     alpha(1, 0) = clamp(alpha_1, -10.0f, 10.0f);
