@@ -254,8 +254,8 @@ void ModeTest::get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x){
 
     Matrix<float, 4, 13> K_0 = K_matrices[i_0];Matrix<float, 4, 13> K_1 = K_matrices[i_1];Matrix<float, 4, 13> K_2 = K_matrices[i_2];Matrix<float, 4, 13> K_3 = K_matrices[i_3];
 
-    Matrix<float, 4, 1> t_vec;
-    t_vec(0, 0) = 1;t_vec(1, 0) = t;t_vec(2, 0) = t * t;t_vec(3, 0) = t * t * t;
+    Matrix<float, 1, 4> t_vec;
+    t_vec(0, 0) = t*t*t, t_vec(0, 1) = t*t, t_vec(0, 2) = t, t_vec(0, 3) = 1;
 
     for (int r = 0; r < 4; r++){
         for (int c = 0; c < 13; c++){
