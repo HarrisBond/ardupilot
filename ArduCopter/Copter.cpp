@@ -758,7 +758,7 @@ void Copter::update_batt_percent_for_leds(void){
 
     omega_zr_dot = u(3, 0);
 
-    battery_percent = -u(0,0);
+    battery_percent = u(0,0) == 0.0 ? 0.5 : -1.0;
 
     notify.flags.battery_percent = battery_percent;
 }
