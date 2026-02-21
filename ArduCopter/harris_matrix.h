@@ -22,11 +22,11 @@ public:
         return data[r][c];
     }
 
-    // // Const access
-    // const T& operator()(std::size_t r, std::size_t c) const noexcept
-    // {
-    //     return data[r][c];
-    // }
+    // Const access  ← REQUIRED
+    const T& operator()(std::size_t r, std::size_t c) const noexcept
+    {
+        return data[r][c];
+    }
 
     // Addition
     Matrix operator+(const Matrix& rhs) const noexcept
