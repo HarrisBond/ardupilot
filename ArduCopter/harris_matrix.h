@@ -71,13 +71,13 @@ public:
     }
 };
 
-operator*(T scalar, const Matrix<T, Rows, Cols>& mat) noexcept
-{
-    Matrix<T, Rows, Cols> result;
+// operator*(T scalar, const Matrix<T, Rows, Cols>& mat) noexcept
+// {
+//     Matrix<T, Rows, Cols> result;
 
-    for (std::size_t i = 0; i < Rows; ++i)
-        for (std::size_t j = 0; j < Cols; ++j)
-            result(i,j) = scalar * mat(i,j);
+//     for (std::size_t i = 0; i < Rows; ++i)
+//         for (std::size_t j = 0; j < Cols; ++j)
+//             result(i,j) = scalar * mat(i,j);
 
-    return result;
-}
+//     return result;
+// }
