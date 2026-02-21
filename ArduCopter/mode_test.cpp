@@ -261,7 +261,7 @@ void ModeTest::get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x){
         for (int c = 0; c < 13; c++){
             Matrix<float, 4, 1> p;
             p(0, 0) = K_0(r, c);p(1, 0) = K_1(r, c);p(2, 0) = K_2(r, c);p(3, 0) = K_3(r, c);
-            K(r, c) = 0.5 * t_vec * M * p;
+            K(r, c) = 0.5 * (t_vec * (M * p));
         }
     }
 }
