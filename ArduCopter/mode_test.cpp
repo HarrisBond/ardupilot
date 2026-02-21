@@ -128,10 +128,15 @@ void ModeTest::test_servos(uint32_t start_time)
 }
 
 void ModeTest::set_servos(float alpha_0, float alpha_1, float alpha_2){
+    float clamp(const float val, const float min_val, const float max_val){
+        if (val < min_val) return min_val;
+        if (val > max_val) return max_val;
+        return val;
+    }
     Matrix<float, 3, 1> alpha;
-    alpha(0, 0) = alpha_0;
-    alpha(1, 0) = alpha_1;
-    alpha(2, 0) = alpha_2;
+    alpha(0, 0) = clamp(alpha_0, -10.0f, 10.0f);
+    alpha(1, 0) = clamp(alpha_1, -10.0f, 10.0f);
+    alpha(2, 0) = clamp(alpha_2, -10.0f, 10.0f);
     for (uint8_t i=0; i<3; i++){
         SRV_Channel* ch = SRV_Channels::srv_channel(i);
     
@@ -161,15 +166,15 @@ void ModeTest::neutralise_servos_and_edf()
 void ModeTest::get_state_vector(Matrix<float, 13, 1>& x){
     Vector3f world_pos;
     if (!ahrs.get_relative_position_NED_origin_float(world_pos)) return;
-    x(0,0) = world_pos.x;
-    x(1,0) = world_pos.y;
-    x(2,0) = world_pos.z;
+    x(0,0) = 0.0;//world_pos.x;
+    x(1,0) = 0.0;//world_pos.y;
+    x(2,0) = 0.0;//world_pos.z;
 
     Vector3f world_vel;
     if (!ahrs.get_velocity_NED(world_vel)) return;
-    x(3,0) = world_vel.x;
-    x(4,0) = -world_vel.y;
-    x(5,0) = -world_vel.z;
+    x(3,0) = 0.0;//world_vel.x;
+    x(4,0) = 0.0;//-world_vel.y;
+    x(5,0) = 0.0;//-world_vel.z;
 
     // // note yaw and pitch are inverted here, because I use forward left up axes, but ardupilot uses forward right down.
     x(6,0) = -ahrs.get_yaw_rad();
@@ -184,7 +189,7 @@ void ModeTest::get_state_vector(Matrix<float, 13, 1>& x){
 
     static uint64_t last_time=0;
     omega_zr += omega_zr_dot * (AP_HAL::micros64() - last_time) / 1000000.0f;
-    x(12,0) = omega_zr;
+    x(12,0) = 0.0;//omega_zr;
     last_time = AP_HAL::micros64();
 }
 
