@@ -2106,7 +2106,7 @@ public:
     void set_servos(float alpha_0, float alpha_1, float alpha_2);
     void get_state_vector(Matrix<float, 13, 1>& x);
     void get_K(Matrix<float, 4, 13>& K, Matrix<float, 13, 1>& x);
-    float omega_zr, omega_zr_dot;
+    float omega_zr = 994.87f, omega_zr_dot = 0.0f;
 
 
 protected:
