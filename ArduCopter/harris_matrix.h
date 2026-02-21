@@ -9,7 +9,7 @@ public:
 
     constexpr Matrix() noexcept = default;
 
-    constexpr explicit Matrix(const T& value) noexcept
+    explicit Matrix(const T& value) noexcept
     {
         for (std::size_t i = 0; i < Rows; ++i)
             for (std::size_t j = 0; j < Cols; ++j)
